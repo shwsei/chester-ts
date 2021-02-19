@@ -1,0 +1,31 @@
+{
+  "name": "Chester easy deploy",
+  "description": "'Chester' é um chat bot do Telegram que aprenderá com as mensagens enviadas para ele",
+  "repository": "https://github.com/Lewizh11/chester-ts",
+  "logo": "https://avatars.githubusercontent.com/u/70781485?s=400&u=bd30683cebb73b085d5d9ab955cf7b8eda80905f&v=4",
+  "keywords": [
+    "node",
+    "typescript",
+    "chatbot",
+    "telegrambot"
+  ],
+  "website": "https://github.com/Lewizh11/chester-ts",
+  "success_url": "https://t.me/type0f",
+  "env": {
+    "TELEGRAM_API": {
+      "description": "Faça um bot no BotFather http://telegram.dog/BotFather e pegue o token de seu bot",
+      "value": "",
+      "required": true
+    },
+    "DB_STRING": {
+      "description": "Crie uma database e conta do MongoDB Atlas https://www.mongodb.com/ após crie um novo cluster e pegue a URL de conexão",
+      "value": "",
+      "required": true
+    },
+    "APP_NAME": {
+      "description": "Coloque aqui o mesmo nome que você colocou em seu app, isso servirá para ativar o webhook!",
+      "value": "",
+      "required": true
+    }
+  }
+}
