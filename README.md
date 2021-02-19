@@ -16,7 +16,7 @@ Você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 
 
 ### 🤖 Rodando o bot localmente
-#### Antes de seguir, vá nos arquivos env.ts e remova as PORT e APP_NAME. No src/index.ts remova o webhook deixando apenas bot.launch()
+Antes de seguir, vá nos arquivos env.ts e remova as PORT e APP_NAME. No src/index.ts remova o webhook deixando apenas bot.launch()
 
 ```bash
 # Clone este repositório
@@ -35,7 +35,7 @@ $ yarn install
 
 # Variáveis ambientes. Crie um arquivo com .env com qualquer editor de texto e coloque:
 DB_STRING=#URL de conexão com o MongoDB
-TELEGRAM_API=Token do seu bot gerado no @BotFather
+TELEGRAM_API=#Token do seu bot gerado no @BotFather
 
 # Build
 # Usando o NPM:
