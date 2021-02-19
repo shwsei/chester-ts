@@ -20,7 +20,7 @@ Antes de seguir, vá nos arquivos env.ts e remova as PORT e APP_NAME. No src/ind
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/Rev3rs1d/chesterbot.git
+$ git clone https://github.com/Lewizh11/chester-ts.git
 
 # Acesse a pasta do projeto no terminal/cmd
 $ cd chesterbot
