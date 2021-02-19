@@ -38,11 +38,19 @@ DB_STRING=#URL de conexão com o MongoDB
 TELEGRAM_API=Token do seu bot gerado no @BotFather
 
 # Build
-$ npm build
-$ yarn build
+# Usando o NPM:
+$ npm build:npm
+
+#Usando o yarn:
+$ yarn build:yarn
 
 # Execute a aplicação
+
+# NPM:
 $ npm start
+
+# Yarn:
+$ yarn start
 
 ```
 ## Pronto, o bot já estará rodando
