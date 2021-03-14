@@ -31,9 +31,7 @@ const addReply = async (ctx: any) => {
   if (await Model.exists({message: userMsg})) {
     let replys
     const savedMsg = await Model.findOne({message: userMsg})
-
-    if (!savedMsg) return // Este if nunca vai ser usado, é apenas uma forma de fazer o TSC ignorá-lo na hora de transpilar
-
+    // @ts-ignore
     replys = savedMsg.reply
     ctx.message.sticker ? replys.push(ctx.message.sticker.file_id) : replys.push(ctx.message.text)
 
