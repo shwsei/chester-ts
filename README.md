@@ -16,7 +16,6 @@ Você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 
 
 ### 🤖 Rodando o bot localmente
-Antes de seguir, vá nos arquivos env.ts e remova as PORT e APP_NAME. No src/index.ts remova o webhook deixando apenas bot.launch()
 
 ```bash
 # Clone este repositório
@@ -39,10 +38,10 @@ TELEGRAM_API=#Token do seu bot gerado no @BotFather
 
 # Build
 # Usando o NPM:
-$ npm build:npm
+$ npm build
 
 #Usando o yarn:
-$ yarn build:yarn
+$ yarn build
 
 # Execute a aplicação
 
@@ -53,4 +52,3 @@ $ npm start
 $ yarn start
 
 ```
-## Pronto, o bot já estará rodando
