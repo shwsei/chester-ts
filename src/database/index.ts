@@ -1,9 +1,8 @@
 import { model, connect, Document } from 'mongoose'
 import { schema } from './models/message'
-import env from '../env'
 
-connect(env.DB_STRING, { 
-	useNewUrlParser: true, useUnifiedTopology: true 
+connect(String(process.env.DB_STRING), { 
+	useNewUrlParser: true, useUnifiedTopology: true, 
 	useCreateIndex: true, useFindAndModify: false
 })
 

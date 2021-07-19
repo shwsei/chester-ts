@@ -1,4 +1,5 @@
 import { Bot } from 'grammy'
-import env from './env'
+import dotenv from 'dotenv'
+dotenv.config()
 
-export const bot = new Bot(env.TELEGRAM_API)
+export const bot = new Bot(String(process.env.TELEGRAM_API))
