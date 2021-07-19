@@ -1,4 +1,4 @@
-import {cleanEnv, str} from 'envalid'
+import { cleanEnv, str, num} from 'envalid'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -6,6 +6,5 @@ dotenv.config()
 export default cleanEnv(process.env, {
   DB_STRING: str(),
   TELEGRAM_API: str(),
-  PORT: str(),
-  APP_NAME: str()
+  PORT: num()
 })

@@ -1,4 +1,4 @@
-import {Telegraf} from 'telegraf'
+import { Bot } from 'grammy'
 import env from './env'
 
-export const bot = new Telegraf(env.TELEGRAM_API)
+export const bot = new Bot(env.TELEGRAM_API)
