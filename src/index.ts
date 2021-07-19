@@ -5,7 +5,7 @@ import composer from './handlers/main'
 import env from './env'
 
 const server = express()
-const PORT = env.PORT
+const PORT = env.PORT || 8080
 
 bot.use(composer)
 server.use(express.json())
