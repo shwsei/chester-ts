@@ -1,85 +1,64 @@
-import {message as Model} from '../database/index'
-import {Composer, Context} from 'telegraf'
-import {bot} from '../bot'
+import { message as model } from '../database/index'
+import { Composer, Context } from 'grammy'
+import { setTimeout } from 'timers/promises'
 
-const createAndAddReply = async (ctx: any, type: string) => {
-  const newMsg = new Model(),
-    userMsg = type == 'sticker' ? ctx.message.reply_to_message.sticker.file_unique_id : ctx.message.reply_to_message.text,
-    reply = ctx.message.sticker ? ctx.message.sticker.file_id : ctx.message.text
+const composer = new Composer()
+const createAndAddReply = async ({ message }: Context) => { 
+  const { reply_to_message } = message!
+  const currentMessage = new model({
+    message: reply_to_message?.sticker?.file_unique_id ?? reply_to_message?.text,
+    reply:  message?.sticker?.file_unique_id ?? message?.reply_to_message?.text
+  })
 
-  try {
-    newMsg.message = userMsg
-    newMsg.reply = reply
-    await newMsg.save()
-  } catch (err) {
-    console.log(err)
-  }
-
+  await currentMessage.save()
 }
 
-const addReply = async (ctx: any) => {
-  let userMsg, type;
+const addReply = async (ctx: Context) => {
+  const { message } = ctx
+  const currentMessage = message?.reply_to_message?.sticker?.file_unique_id 
+    ?? message?.reply_to_message?.text
 
-  if (ctx.message.reply_to_message.sticker) {
-    userMsg = ctx.message.reply_to_message.sticker.file_unique_id
-    type = 'sticker'
-  } else {
-    userMsg = ctx.message.reply_to_message.text
-    type = 'text'
+  const exists = await model.exists({ message: currentMessage })
+  
+  if(exists){
+    await model.findOneAndUpdate({ message: currentMessage }, {
+      $push: {
+        reply: message?.sticker?.file_id ?? message?.text
+      }
+    })
+    return
   }
 
-  if (await Model.exists({message: userMsg})) {
-    let replys
-    const savedMsg = await Model.findOne({message: userMsg})
-    // @ts-ignore
-    replys = savedMsg.reply
-    ctx.message.sticker ? replys.push(ctx.message.sticker.file_id) : replys.push(ctx.message.text)
+  createAndAddReply(ctx)
+}
 
+const answer = async (ctx: Context) => {
+  const message = ctx.message?.sticker?.file_unique_id ?? ctx.message?.text
+  const replies = await model.findOne({ message })
+
+  if(!replies) return
+  
+  const options = { reply_to_message_id: ctx.message?.message_id }
+  const answerMessage = replies.reply[Math.floor(Math.random() * replies.reply.length)]
+ 
+  await ctx.api.sendChatAction(ctx.chat?.id!, "typing")
+  setTimeout(5000).then(async () => {
     try {
-      await Model.findOneAndUpdate({message: userMsg}, {reply: replys})
-
-    } catch (err) {
-      console.log(err.message)
+      await ctx.replyWithSticker(answerMessage, options)  
+    } catch {
+      ctx.reply(answerMessage, options)
     }
-  }
-
-  else createAndAddReply(ctx, type)
-
+  }) 
 }
 
-const answerUser = async (ctx: any, execute: Context) => {
-  const userMsg = ctx.message.sticker ? ctx.message.sticker.file_unique_id : ctx.message.text
+composer.on(['message:text', 'message:sticker'], async ctx => {
+  const isReplied = ctx.message?.reply_to_message ?? false 
+  const { id } = await ctx.api.getMe()
+  const userId =  ctx.from?.id
 
-  const opt = {
-    reply_to_message_id: ctx.message.message_id
-  }
-
-  if (await Model.findOne({message: userMsg})) {
-    const msg = await Model.findOne({message: userMsg})
-    const random = msg?.reply[Math.floor(Math.random() * msg.reply.length)]
-
-    try {
-      await execute.replyWithSticker(random, opt)
-    } catch (err) {
-      execute.reply(random, opt)
-    }
-  }
-
-}
-
-const userIdVerify = (msg: any): number => msg.from ? msg.from.id : 0
-
-const main = Composer.on(['text', 'sticker'], async ctx => {
-
-  const replyToMsg = ctx.message.reply_to_message ? ctx.message.reply_to_message : false,
-    id = bot.botInfo?.id,
-    idUser = userIdVerify(replyToMsg)
-
-  if (replyToMsg && idUser != id) addReply(ctx)
-  if (!replyToMsg || idUser == id) answerUser(ctx, ctx)
+  if(isReplied && userId !== id) addReply(ctx)
+  if(!isReplied || userId === id) answer(ctx)
 
 })
 
-export const initHandler = (): void => {
-  bot.use(main)
-}
+export default composer
