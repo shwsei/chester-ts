@@ -12,6 +12,11 @@
   "website": "https://github.com/Lewizh11/chester-ts",
   "success_url": "https://t.me/type0f",
   "env": {
+		"APP_NAME": {
+			"description": "Atenção, nesse campo você deve colocar o mesmo nome que você deu para a sua aplicação ou o bot não irá funcionar",
+			"value": "",
+			"required": true
+		},
     "TELEGRAM_API": {
       "description": "Faça um bot no BotFather http://telegram.dog/BotFather e pegue o token de seu bot",
       "value": "",
