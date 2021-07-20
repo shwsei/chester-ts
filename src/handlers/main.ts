@@ -20,14 +20,12 @@ const addReply = async (ctx: Context) => {
 
   const exists = await model.exists({ message: currentMessage })
   
-  if(exists){
-    await model.findOneAndUpdate({ message: currentMessage }, {
+  if(exists)
+    return await model.findOneAndUpdate({ message: currentMessage }, {
       $push: {
         reply: message?.sticker?.file_id ?? message?.text
       }
     })
-    return
-  }
 
   createAndAddReply(ctx)
 }
@@ -40,9 +38,9 @@ const answer = async (ctx: Context) => {
   
   const options = { reply_to_message_id: ctx.message?.message_id }
   const answerMessage = replies.reply[Math.floor(Math.random() * replies.reply.length)]
- 
+  const timer = 50 * answerMessage?.length || 6000 
   await ctx.api.sendChatAction(ctx.chat?.id!, "typing")
-  setTimeout(5000).then(async () => {
+  setTimeout(timer).then(async () => {
     try {
       await ctx.replyWithSticker(answerMessage, options)  
     } catch {
