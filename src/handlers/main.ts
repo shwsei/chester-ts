@@ -7,7 +7,7 @@ const createAndAddReply = async ({ message }: Context) => {
   const { reply_to_message } = message!
   const currentMessage = new model({
     message: reply_to_message?.sticker?.file_unique_id ?? reply_to_message?.text,
-    reply:  message?.sticker?.file_id ?? message?.reply_to_message?.text
+    reply:  message?.sticker?.file_id ?? message?.text
   })
 
   await currentMessage.save()
