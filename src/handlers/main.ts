@@ -6,7 +6,7 @@ const composer = new Composer()
 const createAndAddReply = async ({ message }: Context) => { 
   const { reply_to_message } = message!
   const currentMessage = new model({
-    message: reply_to_message?.sticker?.file_unique_id ?? reply_to_message?.text,
+    message: reply_to_message?.sticker?.file_unique_id ?? reply_to_message?.text.toLowerCase(),
     reply:  message?.sticker?.file_id ?? message?.text
   })
 
@@ -16,7 +16,7 @@ const createAndAddReply = async ({ message }: Context) => {
 const addReply = async (ctx: Context) => {
   const { message } = ctx
   const currentMessage = message?.reply_to_message?.sticker?.file_unique_id 
-    ?? message?.reply_to_message?.text
+    ?? message?.reply_to_message?.text.toLowerCase()
 
   const exists = await model.exists({ message: currentMessage })
   
@@ -31,7 +31,7 @@ const addReply = async (ctx: Context) => {
 }
 
 const answer = async (ctx: Context) => {
-  const message = ctx.message?.sticker?.file_unique_id ?? ctx.message?.text
+  const message = ctx.message?.sticker?.file_unique_id ?? ctx.message?.text.toLowerCase()
   const replies = await model.findOne({ message })
 
   if(!replies) return
