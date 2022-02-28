@@ -41,7 +41,10 @@ const answer = async (ctx: Context) => {
   const options = { reply_to_message_id: ctx.message?.message_id }
   const answerMessage = replies.reply[Math.floor(Math.random() * replies.reply.length)]
   const timer = 50 * answerMessage?.length || 6000 
+  
   await ctx.api.sendChatAction(ctx.chat?.id!, "typing")
+    .catch(() => console.log("Tô sem ADMIR, ajdua eu ae"))
+
   setTimeout(timer).then(async () => {
     try {
       await ctx.replyWithSticker(answerMessage, options)  
