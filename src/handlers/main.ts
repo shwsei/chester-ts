@@ -3,12 +3,14 @@ import { Composer, Context } from 'grammy'
 import { setTimeout } from 'timers/promises'
 
 const composer = new Composer()
-const createAndAddReply = async ({ message }: Context) => { 
-  const { reply_to_message } = message!
-  const currentMessage = new model({
-    message: reply_to_message?.sticker?.file_unique_id ?? reply_to_message?.text?.toLowerCase(),
-    reply:  message?.sticker?.file_id ?? message?.text
-  })
+const createAndAddReply = async (ctx: Context) => { 
+  const { reply_to_message } = ctx?.message!
+  const message = reply_to_message?.sticker?.file_unique_id ?? reply_to_message?.text?.toLowerCase()
+  const reply = ctx.message?.sticker?.file_id ?? ctx.message?.text
+
+  if(!message || !reply) return 
+
+  const currentMessage = new model({ message, reply})
 
   await currentMessage.save()
 }
@@ -26,7 +28,7 @@ const addReply = async (ctx: Context) => {
         reply: message?.sticker?.file_id ?? message?.text
       }
     })
-
+    
   createAndAddReply(ctx)
 }
 
