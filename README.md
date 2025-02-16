@@ -4,6 +4,6 @@
 
 ![Badge](https://img.shields.io/badge/Telegram-ShuseiKagari-blue) ![Badge](https://img.shields.io/badge/Telegram-type0f-blue)
 
-### 🤖 Deploy no Heroku
+### 🤖 Deploy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+TODO

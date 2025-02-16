@@ -1,4 +1,4 @@
-import { cleanEnv, str, num, url } from 'envalid'
+import { cleanEnv, str, url } from 'envalid'
 import { config } from 'dotenv'
 
 import path from 'path'
@@ -13,7 +13,5 @@ config({
 export default cleanEnv(process.env, {
   DB_STRING: url(),
   NODE_ENV: str({ choices: ['development', 'production'] }),
-  TELEGRAM_API: str(),
-  PORT: num(),
-  APP_NAME: str()
+  TELEGRAM_API: str()
 })
