@@ -3,9 +3,11 @@ import composer from './handlers/main'
 import express from 'express'
 import { webhookCallback } from 'grammy'
 
+import env from './env'
+
 const server = express()
-const PORT = Number(process.env.PORT) || 8080
-const domain = String(process.env.APP_NAME)
+const PORT = env.PORT
+const domain = env.APP_NAME
 
 bot.use(composer)
 bot.catch((err) => console.error(err))

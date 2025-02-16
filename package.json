@@ -10,15 +10,18 @@
     "@types/node": "^16.3.3",
     "prettier": "^3.5.1",
     "ts-node-dev": "^1.1.1",
+    "tsx": "^4.19.2",
     "typescript": "^4.1.5"
   },
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "dotenv -v NODE_ENV=production -- node dist/index.js",
+    "dev": "dotenv -v NODE_ENV=development -- tsx watch src/index.ts ",
     "build": "npx tsc",
     "fmt": "npx prettier . --write"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
+    "dotenv-cli": "^8.0.0",
     "envalid": "^7.0.0",
     "express": "^4.17.1",
     "grammy": "^1.2.0",
