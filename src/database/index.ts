@@ -3,12 +3,7 @@ import { schema } from './models/message'
 
 import env from '../env'
 
-connect(String(env.DB_STRING), {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-})
+connect(env.DB_STRING)
 
 interface IMessage extends Document {
   message: string
