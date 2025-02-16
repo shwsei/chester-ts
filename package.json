@@ -2,6 +2,7 @@
   "name": "chest-ts",
   "version": "1.0.2",
   "main": "index.js",
+  "type": "module",
   "license": "MIT",
   "author": "https://www.github.com/Lewizh11",
   "devDependencies": {
@@ -23,7 +24,9 @@
     "dotenv-cli": "^8.0.0",
     "envalid": "^8.0.0",
     "grammy": "^1.2.0",
-    "mongoose": "^8.10.1"
+    "grammy-middlewares": "^1.0.11",
+    "mongoose": "^8.10.1",
+    "source-map-support": "^0.5.21"
   },
   "engines": {
     "node": ">=22"
