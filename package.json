@@ -9,13 +9,14 @@
     "@types/mongoose": "^5.10.3",
     "@types/node": "^22.13.4",
     "prettier": "^3.5.1",
+    "tsc-alias": "^1.8.10",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   },
   "scripts": {
     "start": "dotenv -v NODE_ENV=production -- node dist/index.js",
     "dev": "dotenv -v NODE_ENV=development -- tsx watch src/index.ts ",
-    "build": "npx tsc",
+    "build": "tsc && tsc-alias",
     "fmt": "npx prettier . --write"
   },
   "dependencies": {
