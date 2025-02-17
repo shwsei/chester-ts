@@ -5,7 +5,10 @@ import { ignoreOld, sequentialize } from 'grammy-middlewares'
 
 import composer from './handlers/main'
 
-bot.use(ignoreOld()).use(sequentialize()).use(composer)
+bot
+  .use(ignoreOld(30 * 60))
+  .use(sequentialize())
+  .use(composer)
 
 const runner = run(bot)
 
