@@ -5,9 +5,13 @@ import { ignoreOld, sequentialize } from 'grammy-middlewares'
 
 import composer from './handlers/main'
 
+bot.use(ignoreOld(30 * 60)).use(sequentialize())
+
 bot
-  .use(ignoreOld(30 * 60))
-  .use(sequentialize())
+  .errorBoundary((error) => {
+    console.log('error on process update.')
+    console.log(error)
+  })
   .use(composer)
 
 const runner = run(bot)
